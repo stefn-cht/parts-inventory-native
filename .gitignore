@@ -1,0 +1,13 @@
+build/
+build-*/
+*.user
+*.user.*
+CMakeUserPresets.json
+.vscode/
+.idea/
+
+# Native build artifacts
+*.exe
+*.msi
+*.deb
+*.AppImage
