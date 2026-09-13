@@ -19,12 +19,12 @@ jobs:
         uses: jurplel/install-qt-action@v4
         with:
           version: "6.8.2"
-          arch: "win64_msvc2022_64"
+          arch: "win64_mingw"
           cache: true
 
       - name: Configure
         shell: pwsh
-        run: cmake -S . -B build -G "Visual Studio 17 2022" -A x64
+        run: cmake -S . -B build -G Ninja -DCMAKE_BUILD_TYPE=Release
 
       - name: Build
         shell: pwsh

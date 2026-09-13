@@ -25,10 +25,10 @@ cmake --build build --target package
 
 The same CMake package target produces an NSIS Windows installer when configured with a Qt 6 Windows x64 toolchain. The standalone executable is available directly in the build directory on each platform; Windows builds produce `parts-inventory.exe`.
 
-For a local Windows build, install Qt 6.8.x with the `MSVC 2022 64-bit` kit, then run:
+For a local Windows build, install Qt 6.8.x with the `MinGW 64-bit` kit and Ninja, then run:
 
 ```powershell
-cmake -S . -B build -G "Visual Studio 17 2022" -A x64
+cmake -S . -B build -G Ninja -DCMAKE_BUILD_TYPE=Release
 cmake --build build --config Release --parallel
 cpack --config build/CPackConfig.cmake -C Release -G NSIS
 ```
