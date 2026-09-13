@@ -28,7 +28,7 @@ The same CMake package target produces an NSIS Windows installer when configured
 For a local Windows build, install Qt 6.8.x with the `MSVC 2022 64-bit` kit, then run:
 
 ```powershell
-cmake -S . -B build -G Ninja -DCMAKE_BUILD_TYPE=Release
+cmake -S . -B build -G "Visual Studio 17 2022" -A x64
 cmake --build build --config Release --parallel
 cpack --config build/CPackConfig.cmake -C Release -G NSIS
 ```
