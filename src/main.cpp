@@ -86,7 +86,7 @@ void applyWidgetStyle(QApplication& application, const QString& styleName) {
 
 QString inventoryDataPath() {
 #ifdef Q_OS_WIN
-    return QDir(QStandardPaths::writableLocation(QStandardPaths::LocalAppDataLocation))
+    return QDir(QStandardPaths::writableLocation(QStandardPaths::AppLocalDataLocation))
         .filePath(QStringLiteral("parts-inventory/inventory.json"));
 #else
     return QDir(QDir::homePath()).filePath(QStringLiteral(".local/share/parts-inventory/inventory.json"));
