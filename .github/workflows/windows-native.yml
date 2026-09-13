@@ -30,6 +30,10 @@ jobs:
         shell: pwsh
         run: cmake --build build --config Release --parallel
 
+      - name: Install NSIS
+        shell: pwsh
+        run: choco install nsis -y --no-progress
+
       - name: Package NSIS installer
         shell: pwsh
         run: cpack --config build/CPackConfig.cmake -C Release -G NSIS
