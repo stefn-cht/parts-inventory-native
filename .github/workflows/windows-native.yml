@@ -1,0 +1,46 @@
+name: Native Windows x64
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - "**"
+      - ".github/workflows/windows-native.yml"
+
+jobs:
+  build-windows:
+    runs-on: windows-latest
+
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v4
+
+      - name: Install Qt 6
+        uses: jurplel/install-qt-action@v4
+        with:
+          version: "6.8.2"
+          arch: "win64_msvc2022_64"
+          modules: "qtnetwork"
+          cache: true
+
+      - name: Configure
+        shell: pwsh
+        run: cmake -S . -B build -G Ninja -DCMAKE_BUILD_TYPE=Release
+
+      - name: Build
+        shell: pwsh
+        run: cmake --build build --config Release --parallel
+
+      - name: Package NSIS installer
+        shell: pwsh
+        run: cpack --config build/CPackConfig.cmake -C Release -G NSIS
+
+      - name: Upload executable and installer
+        uses: actions/upload-artifact@v4
+        with:
+          name: parts-inventory-windows-x64
+          path: |
+            build/parts-inventory.exe
+            build/Release/parts-inventory.exe
+            build/*.exe
+          if-no-files-found: error
