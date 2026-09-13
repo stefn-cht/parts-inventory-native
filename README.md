@@ -23,7 +23,7 @@ Create a Debian package:
 cmake --build build --target package
 ```
 
-The same CMake package target produces an NSIS Windows installer when configured with a Qt 6 Windows x64 toolchain. The standalone executable is available directly in the build directory on each platform; Windows builds produce `parts-inventory.exe`.
+The same CMake package target produces an NSIS Windows installer when configured with a Qt 6 Windows x64 toolchain. Windows standalone builds are distributed as a folder containing `parts-inventory.exe` and its Qt/MinGW DLLs; the executable should not be copied out of that folder by itself.
 
 For a local Windows build, install Qt 6.8.x with the `MinGW 64-bit` kit and Ninja, then run:
 

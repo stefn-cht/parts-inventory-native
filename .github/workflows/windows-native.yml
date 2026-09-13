@@ -30,6 +30,16 @@ jobs:
         shell: pwsh
         run: cmake --build build --config Release --parallel
 
+      - name: Prepare standalone Windows bundle
+        shell: pwsh
+        run: |
+          New-Item -ItemType Directory -Force -Path standalone | Out-Null
+          Copy-Item build/parts-inventory.exe standalone/parts-inventory.exe
+          windeployqt --release --no-translations standalone/parts-inventory.exe
+          Copy-Item C:/mingw64/bin/libgcc_s_seh-1.dll standalone/libgcc_s_seh-1.dll
+          Copy-Item C:/mingw64/bin/libstdc++-6.dll standalone/libstdc++-6.dll
+          Copy-Item C:/mingw64/bin/libwinpthread-1.dll standalone/libwinpthread-1.dll
+
       - name: Install NSIS
         shell: pwsh
         run: choco install nsis -y --no-progress
@@ -43,7 +53,6 @@ jobs:
         with:
           name: parts-inventory-windows-x64
           path: |
-            build/parts-inventory.exe
-            build/Release/parts-inventory.exe
-            build/*.exe
+            standalone/**
+            build/*-win64.exe
           if-no-files-found: error

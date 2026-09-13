@@ -45,6 +45,13 @@ if(WIN32)
         NO_TRANSLATIONS
     )
     install(SCRIPT ${deploy_script})
+
+    get_filename_component(MINGW_BIN_DIR "${CMAKE_CXX_COMPILER}" DIRECTORY)
+    foreach(runtime_dll IN ITEMS libgcc_s_seh-1.dll libstdc++-6.dll libwinpthread-1.dll)
+        if(EXISTS "${MINGW_BIN_DIR}/${runtime_dll}")
+            install(FILES "${MINGW_BIN_DIR}/${runtime_dll}" DESTINATION bin)
+        endif()
+    endforeach()
 endif()
 
 set(CPACK_PACKAGE_NAME "parts-inventory")
